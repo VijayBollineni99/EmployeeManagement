@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="PrjEmployeeManagement.Views.ManagementWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PrjEmployeeManagement.Views" xmlns:models="clr-namespace:PrjEmployeeManagement.Models" xmlns:TheViewModel="clr-namespace:PrjEmployeeManagement.ViewModels" d:DataContext="{d:DesignInstance Type=models:Employee}"
+             mc:Ignorable="d" Width="973" Background="#FF79C0BB" Height="567">
+    <UserControl.DataContext>
+        <TheViewModel:EmployeeViewModel/>
+    </UserControl.DataContext>
+    <Grid HorizontalAlignment="Left" Width="1200" Height="485" VerticalAlignment="Top" Margin="64,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="140" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="5.96" />
+            <RowDefinition Height="Auto" MinHeight="5.96" />
+            <RowDefinition Height="Auto" MinHeight="5.96" />
+            <RowDefinition Height="Auto" MinHeight="5.96"/>
+            <RowDefinition Height="Auto" MinHeight="63"/>
+            <RowDefinition Height="91*"/>
+            <RowDefinition Height="141*" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="                  Employee Management"
+                   Grid.Row="0" Grid.Column="1"
+                   FontSize="20" FontWeight="Bold"
+                   HorizontalAlignment="Left" Margin="5,6,0,10" Width="418" />
+        <TextBlock
+                   Grid.Row="1"
+                   Grid.Column="0" Margin="0,15,1,19" HorizontalAlignment="Right" Width="95"><Run Text="  "/><Run Text="Employee Id"/><Run Text=" "/></TextBlock>
+        <TextBlock
+                   Grid.Row="2" Margin="0,2,0,22" HorizontalAlignment="Center" Width="94"><Run Language="en-in" Text="  "/><Run Text="Employee Name"/></TextBlock>
+        <TextBlock
+                   Grid.Row="3" Margin="0,1,0,32" HorizontalAlignment="Center" Width="94"><Run Language="en-in" Text="   "/><Run Text="Employee Email"/></TextBlock>
+        <TextBlock
+                   Grid.Row="3" Margin="0,42,0,55" HorizontalAlignment="Center" Width="94" Grid.RowSpan="2">
+            <Run Language="en-in" Text=""/><Run Text="Employee Gender"/></TextBlock>
+        <TextBlock Text="Employee Status"
+                   Grid.Row="4"
+                   Grid.Column="0" Margin="0,30,17,14" HorizontalAlignment="Right" Width="95"/>
+        <TextBox Name="id"
+                 Grid.Column="1" Text="{Binding Path=CurrentEmployee.Id,Mode=TwoWay}" Margin="21,9,736,10" Grid.Row="1"/>
+        <TextBox Name="name"
+                 Grid.Row="1"
+                 Grid.Column="1" Text="{Binding Path=CurrentEmployee.Name,Mode=TwoWay}" Margin="21,49,736,13" Grid.RowSpan="2"/>
+        <TextBox Name="email"
+                 Grid.Row="2"
+                 Grid.Column="1" Text="{Binding Path=CurrentEmployee.Email,Mode=TwoWay}" Margin="21,39,736,26" Grid.RowSpan="2"/>
+        <TextBox Name="gender"
+                 Grid.Row="3"
+                 Grid.Column="1" Text="{Binding Path=CurrentEmployee.Gender
+            ,Mode=TwoWay}" Margin="21,39,736,49" Grid.RowSpan="2"/>
+        <TextBox Name="status"
+                 Grid.Row="4" Text="{Binding Path=CurrentEmployee.Status,Mode=TwoWay}" Margin="21,26,736,12" Grid.Column="1" />
+
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="3" HorizontalAlignment="Left"
+                    Grid.Column="1" Margin="511,32,0,49" Width="174" Grid.RowSpan="2">
+            <Button x:Name="btnSave"
+                    Content="Save" Command="{Binding SaveCommand}" Width="54" Height="30" Background="#FF7E78F6"/>
+            <Button x:Name="btnEdit"
+                    Content="Edit" Margin="3" Command="{Binding UpdateCommand}" Width="54" Height="30" Background="#FF7E78F6"/>
+            <Button x:Name="btnDelete"
+                    Content="Delete" Margin="3" Command="{Binding DeleteCommand}" Width="54" Height="30" Background="#FF7E78F6" />
+
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="4" HorizontalAlignment="Left"
+                    Grid.Column="1" Margin="511,19,0,9" Width="174">
+            <Button x:Name="btnSearch"
+                    Content="Search" Command="{Binding SearchCommand}" Width="54" Height="30" Background="#FF7E78F6"/>
+            <Button x:Name="btnClear"
+                    Content="Clear" Margin="3" Width="54" Height="30" Background="#FF7E78F6" Click="btnClear_Click"/>
+            <Button x:Name="btnClose"
+                    Content="Close" Margin="3" Width="54" Height="30" Background="#FF7E78F6" Click="btnClose_Click" />
+
+        </StackPanel>
+
+
+
+        <DataGrid  x:Name="dgEmployees" ItemsSource="{Binding Path=Employees, Mode=TwoWay}"
+                  AutoGenerateColumns="False"
+                  Grid.Row="4" Grid.Column="1" 
+                  Margin="21,62,373,0" Grid.RowSpan="3" IsReadOnly="True"   >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Employee Id"
+                                    Width="Auto"
+                                    Binding="{Binding Path=Id}"/>
+                <DataGridTextColumn Header="Employee Name"
+                                    Width="Auto"
+                                    Binding="{Binding Path=Name}"/>
+                <DataGridTextColumn Header="Employee Email"
+                                    Width="Auto"
+                                    Binding="{Binding Path=Email}"/>
+                <DataGridTextColumn Header="Employee Gender"
+                                    Width="Auto"
+                                    Binding="{Binding Path=Gender}"/>
+                <DataGridTextColumn Header="Employee Status"
+                                    Width="*"
+                                    Binding="{Binding Path=Status}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
